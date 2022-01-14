@@ -4,12 +4,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 abstract contract FeeTakersERC20 is Ownable{
-    IERC20 _token;
-
-    constructor(IERC20 token) {
-        _token = token;
-    }
-
     struct FeeTaker {
         address addr;
         uint points;
@@ -33,7 +27,7 @@ abstract contract FeeTakersERC20 is Ownable{
         _feeTakers.pop();
     }
 
-    function _distributeFeeERC20(uint fee) internal {
+    function _distributeFeeERC20(IERC20 token, uint fee) internal {
         uint feePoints;
         uint feePerPoint;
         for(uint i; i < _feeTakers.length; i ++) {
@@ -46,7 +40,7 @@ abstract contract FeeTakersERC20 is Ownable{
             FeeTaker storage feeTaker = _feeTakers[i];
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
-            _token.transfer(feeTakerAddr, toSend);
+            token.transfer(feeTakerAddr, toSend);
             emit FeeSent(feeTakerAddr, toSend);
         }
     }
