@@ -10,7 +10,7 @@ abstract contract FeeTakersERC20 is Ownable{
     }
     FeeTaker[] _feeTakers;
 
-    event FeeSent(address to, uint amount);    
+    event FeeSentERC20(address to, uint amount);    
 
     //manage where profit is sent to
     function getFeeTakersERC20Length() public view onlyOwner returns(uint) {
@@ -41,7 +41,7 @@ abstract contract FeeTakersERC20 is Ownable{
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
             token.transfer(feeTakerAddr, toSend);
-            emit FeeSent(feeTakerAddr, toSend);
+            emit FeeSentERC20(feeTakerAddr, toSend);
         }
     }
 }
