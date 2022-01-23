@@ -8,36 +8,36 @@ abstract contract FeeTakersERC20 is Ownable{
         address addr;
         uint points;
     }
-    FeeTakerERC20[] _feeTakers;
+    FeeTakerERC20[] _feeTakersERC20;
 
     event FeeSentERC20(address to, uint amount);    
 
     //manage where profit is sent to
     function getFeeTakersERC20Length() public view onlyOwner returns(uint) {
-        return _feeTakers.length;
+        return _feeTakersERC20.length;
     }
     function getFeeTakerERC20At(uint index) public view onlyOwner returns(FeeTakerERC20 memory) {
-        return _feeTakers[index];
+        return _feeTakersERC20[index];
     }
     function addToFeeTakersERC20(address addr, uint points) public onlyOwner {
-        _feeTakers.push(FeeTakerERC20(addr, points));
+        _feeTakersERC20.push(FeeTakerERC20(addr, points));
     }
     function removeFromFeeTakersERC20(uint index) public onlyOwner {
-        _feeTakers[index] = _feeTakers[_feeTakers.length - 1];
-        _feeTakers.pop();
+        _feeTakersERC20[index] = _feeTakersERC20[_feeTakersERC20.length - 1];
+        _feeTakersERC20.pop();
     }
 
     function _distributeFeeERC20(IERC20 token, uint fee) internal {
         uint feePoints;
         uint feePerPoint;
-        for(uint i; i < _feeTakers.length; i ++) {
-            feePoints += _feeTakers[i].points;
+        for(uint i; i < _feeTakersERC20.length; i ++) {
+            feePoints += _feeTakersERC20[i].points;
         }
         if(feePoints > 0) {
             feePerPoint = fee / feePoints;
         }
         for(uint i; i < getFeeTakersERC20Length(); i ++) {
-            FeeTakerERC20 storage feeTaker = _feeTakers[i];
+            FeeTakerERC20 storage feeTaker = _feeTakersERC20[i];
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
             token.transfer(feeTakerAddr, toSend);
