@@ -13,10 +13,10 @@ abstract contract FeeTakersERC20 is Ownable{
     event FeeSentERC20(address to, uint amount);    
 
     //manage where profit is sent to
-    function getFeeTakersERC20Length() public view onlyOwner returns(uint) {
+    function getFeeTakersERC20Length() public view returns(uint) {
         return _feeTakersERC20.length;
     }
-    function getFeeTakerERC20At(uint index) public view onlyOwner returns(FeeTakerERC20 memory) {
+    function getFeeTakerERC20At(uint index) public view returns(FeeTakerERC20 memory) {
         return _feeTakersERC20[index];
     }
     function addToFeeTakersERC20(address addr, uint points) public onlyOwner {
