@@ -111,8 +111,8 @@
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\fee\\FeeTakersERC20.sol": {
-      "lastModificationDate": 1643987838782,
-      "contentHash": "c60ce8f0f4f44412ac54dfbac091bf38",
+      "lastModificationDate": 1644183663072,
+      "contentHash": "2a61077ba357e2368eb6e337fcdbc4b8",
       "sourceName": "contracts/fee/FeeTakersERC20.sol",
       "solcConfig": {
         "version": "0.8.0",

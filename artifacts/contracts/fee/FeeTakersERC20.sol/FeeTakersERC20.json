@@ -8,6 +8,12 @@
       "inputs": [
         {
           "indexed": false,
+          "internalType": "contract IERC20",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
           "internalType": "address",
           "name": "to",
           "type": "address"
