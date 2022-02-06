@@ -41,7 +41,8 @@ contract FeeTakers is Ownable {
             FeeTaker storage feeTaker = _feeTakers[i];
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
-            feeTakerAddr.call{value: toSend}("");
+            (bool success,) = feeTakerAddr.call{value: toSend}("");
+            require(success);
             emit FeeSent(feeTakerAddr, toSend);
         }
     }

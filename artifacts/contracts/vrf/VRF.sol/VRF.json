@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "VRF",
+  "sourceName": "contracts/vrf/VRF.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220e32fa4a67f22eb4dcfd8e6fd7ea250efa772ee691132f2d86ab1decf92b92c5464736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220e32fa4a67f22eb4dcfd8e6fd7ea250efa772ee691132f2d86ab1decf92b92c5464736f6c63430008000033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
