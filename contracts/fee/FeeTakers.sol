@@ -18,6 +18,7 @@ contract FeeTakers is Ownable {
         return _feeTakers;
     }
     function addToFeeTakers(address addr, uint points) public onlyOwner {
+        require(points > 0, "Points must be greater than 0.");
         _feeTakers.push(FeeTaker(addr, points));
     }
     function removeFromFeeTakers(uint index) public onlyOwner {
@@ -28,15 +29,16 @@ contract FeeTakers is Ownable {
         delete _feeTakers;
     }
 
-    function _distributeFee(uint fee) internal {
+    function _distributeFee(uint fee) internal returns(bool success) {
+        if(_feeTakers.length == 0) {
+            return false;
+        }
         uint feePoints;
         uint feePerPoint;
         for(uint i; i < _feeTakers.length; i ++) {
             feePoints += _feeTakers[i].points;
         }
-        if(feePoints > 0) {
-            feePerPoint = fee / feePoints;
-        }
+        feePerPoint = fee / feePoints;
         for(uint i; i < _feeTakers.length; i ++) {
             FeeTaker storage feeTaker = _feeTakers[i];
             address feeTakerAddr = feeTaker.addr;
@@ -45,5 +47,6 @@ contract FeeTakers is Ownable {
             require(success);
             emit FeeSent(feeTakerAddr, toSend);
         }
+        return true;
     }
 }
