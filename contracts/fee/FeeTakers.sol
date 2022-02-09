@@ -1,8 +1,9 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract FeeTakers is Ownable {
+contract FeeTakers is Ownable, ReentrancyGuard {
 
     struct FeeTaker {
         address addr;
@@ -29,7 +30,7 @@ contract FeeTakers is Ownable {
         delete _feeTakers;
     }
 
-    function _distributeFee(uint fee) internal returns(bool success) {
+    function _distributeFee(uint fee) internal nonReentrant returns(bool success) {
         if(_feeTakers.length == 0) {
             return false;
         }
@@ -43,8 +44,8 @@ contract FeeTakers is Ownable {
             FeeTaker storage feeTaker = _feeTakers[i];
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
-            (bool success,) = feeTakerAddr.call{value: toSend}("");
-            require(success);
+            (bool succ,) = feeTakerAddr.call{value: toSend}("");
+            require(succ);
             emit FeeSent(feeTakerAddr, toSend);
         }
         return true;
