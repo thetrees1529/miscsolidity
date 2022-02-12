@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\access\\Admin.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\access\\Admin.sol": {
       "lastModificationDate": 1642188457070,
       "contentHash": "27a9e1908d03244e10d0d870db68997d",
       "sourceName": "contracts/access/Admin.sol",
@@ -38,7 +38,7 @@
         "Admin"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
       "lastModificationDate": 1641317761117,
       "contentHash": "cbba874af15bc1c65a1c82aebec1a0fe",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
@@ -75,7 +75,7 @@
         "Ownable"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
       "lastModificationDate": 1641317761046,
       "contentHash": "a06a83834de6f8eb27f6ed608d030ac2",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
@@ -110,7 +110,7 @@
         "Context"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\fee\\FeeTakersERC20.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\fee\\FeeTakersERC20.sol": {
       "lastModificationDate": 1644183663072,
       "contentHash": "2a61077ba357e2368eb6e337fcdbc4b8",
       "sourceName": "contracts/fee/FeeTakersERC20.sol",
@@ -148,7 +148,7 @@
         "FeeTakersERC20"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
       "lastModificationDate": 1641317761103,
       "contentHash": "5f4c7678e2e69875dbd2ec01d3d288c1",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
@@ -183,7 +183,7 @@
         "IERC20"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\fee\\FeeTakers.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\fee\\FeeTakers.sol": {
       "lastModificationDate": 1644447217876,
       "contentHash": "c5fdd4b28341fd1ae082947c8e827a4c",
       "sourceName": "contracts/fee/FeeTakers.sol",
@@ -221,10 +221,10 @@
         "FeeTakers"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\Migrations.sol": {
-      "lastModificationDate": 1641246884707,
-      "contentHash": "50b3b1dc92806dc8f604fc8c5c65518f",
-      "sourceName": "contracts/Migrations.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
+      "lastModificationDate": 1641317761121,
+      "contentHash": "402cec08d80c01e96ba8d27963975f8d",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -250,16 +250,16 @@
       },
       "imports": [],
       "versionPragmas": [
-        ">=0.4.22 <0.9.0"
+        "^0.8.0"
       ],
       "artifacts": [
-        "Migrations"
+        "ReentrancyGuard"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\token\\ERC998\\ERC998ERC721TopDown\\ERC998ERC721TopDown.sol": {
-      "lastModificationDate": 1644158108177,
-      "contentHash": "3df0b9a7f775ad66ce72e488e5cbb82e",
-      "sourceName": "contracts/token/ERC998/ERC998ERC721TopDown/ERC998ERC721TopDown.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\access\\OwnableAccessControl.sol": {
+      "lastModificationDate": 1644606518058,
+      "contentHash": "554a07ab79b1e63842118c29021263df",
+      "sourceName": "contracts/access/OwnableAccessControl.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -284,17 +284,20 @@
         }
       },
       "imports": [
-        "./IERC998ERC721TopDown.sol"
+        "@openzeppelin/contracts/access/AccessControl.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
-      "artifacts": []
+      "artifacts": [
+        "OwnableAccessControl"
+      ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\token\\ERC998\\ERC998ERC721TopDown\\IERC998ERC721TopDown.sol": {
-      "lastModificationDate": 1644072335604,
-      "contentHash": "1d9fd5dba59583d8c7de3ad94e7330f5",
-      "sourceName": "contracts/token/ERC998/ERC998ERC721TopDown/IERC998ERC721TopDown.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\access\\AccessControl.sol": {
+      "lastModificationDate": 1641317761041,
+      "contentHash": "7566c6c5c9ef0ebe07a660f6633c95d9",
+      "sourceName": "@openzeppelin/contracts/access/AccessControl.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -319,17 +322,204 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
-        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"
+        "./IAccessControl.sol",
+        "../utils/Context.sol",
+        "../utils/Strings.sol",
+        "../utils/introspection/ERC165.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC998ERC721TopDown"
+        "AccessControl"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\access\\IAccessControl.sol": {
+      "lastModificationDate": 1641317761092,
+      "contentHash": "4b41bf9357608ab58d8f48c51c33c6ab",
+      "sourceName": "@openzeppelin/contracts/access/IAccessControl.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IAccessControl"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
+      "lastModificationDate": 1641317761126,
+      "contentHash": "babfde9e032d8044f461325c13ca07d7",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Strings"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
+      "lastModificationDate": 1641317761058,
+      "contentHash": "31c485b4e552cc1bdeb99edb8303011e",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC165"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
+      "lastModificationDate": 1641317761100,
+      "contentHash": "caf880149ceb95d7355b976d61c278a8",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC165"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
+      "lastModificationDate": 1641317761079,
+      "contentHash": "81722bd5f5980edd45a9a72c4119225a",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC721.sol",
+        "./IERC721Receiver.sol",
+        "./extensions/IERC721Metadata.sol",
+        "../../utils/Address.sol",
+        "../../utils/Context.sol",
+        "../../utils/Strings.sol",
+        "../../utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
       "lastModificationDate": 1641317761106,
       "contentHash": "937105c04c9b4b689f8ee2d6d161994d",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
@@ -366,7 +556,7 @@
         "IERC721"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
       "lastModificationDate": 1641317761109,
       "contentHash": "c327b62ee5bcacfdd977bc3888fba3a4",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
@@ -401,10 +591,47 @@
         "IERC721Receiver"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
-      "lastModificationDate": 1641317761100,
-      "contentHash": "caf880149ceb95d7355b976d61c278a8",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
+      "lastModificationDate": 1641317761108,
+      "contentHash": "a17d56fe0dfcceb68cd8a527b934b0ae",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Metadata"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
+      "lastModificationDate": 1641317761043,
+      "contentHash": "a8d6f1154bf88980c18dd20fb009967d",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -433,10 +660,301 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC165"
+        "Address"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\utils\\Random.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155.sol": {
+      "lastModificationDate": 1641317761094,
+      "contentHash": "0e2e19e1b1e3925e33887978e509f6ad",
+      "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1155"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\structs\\ERC1155Reference.sol": {
+      "lastModificationDate": 1644611602007,
+      "contentHash": "43e72d5343997ef1c4dc70393ca0e6ab",
+      "sourceName": "contracts/token/ERC721/structs/ERC1155Reference.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC1155/IERC1155.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\structs\\ERC1155Info.sol": {
+      "lastModificationDate": 1644611598226,
+      "contentHash": "192c9e957536348dba41f8b98e774611",
+      "sourceName": "contracts/token/ERC721/structs/ERC1155Info.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC1155Reference.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\extensions\\IERC721WithERC1155Children.sol": {
+      "lastModificationDate": 1644677072529,
+      "contentHash": "a221090af628d8c0bc4aa003ed21cd97",
+      "sourceName": "contracts/token/ERC721/extensions/IERC721WithERC1155Children.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
+        "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721WithERC1155Children"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\extensions\\ERC721WithERC1155Children.sol": {
+      "lastModificationDate": 1644677100725,
+      "contentHash": "2b304537e6c3a77f5a179b874088dad0",
+      "sourceName": "contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "./IERC721WithERC1155Children.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721WithERC1155Children"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
+      "lastModificationDate": 1641317761047,
+      "contentHash": "a21834c04c11733a9018196d6b1b0e89",
+      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155Receiver.sol": {
+      "lastModificationDate": 1641317761097,
+      "contentHash": "267ac43ce2f4a88182f279f80102d0d6",
+      "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1155Receiver"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\Migrations.sol": {
+      "lastModificationDate": 1641246884707,
+      "contentHash": "50b3b1dc92806dc8f604fc8c5c65518f",
+      "sourceName": "contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\Random.sol": {
       "lastModificationDate": 1641246884707,
       "contentHash": "23be81c38156ba431d243df4f4056acb",
       "sourceName": "contracts/utils/Random.sol",
@@ -471,7 +989,7 @@
         "Random"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\contracts\\vrf\\VRF.sol": {
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\vrf\\VRF.sol": {
       "lastModificationDate": 1643392386825,
       "contentHash": "75edcd54632ed8d9e400728a765b16a9",
       "sourceName": "contracts/vrf/VRF.sol",
@@ -504,41 +1022,6 @@
       ],
       "artifacts": [
         "VRF"
-      ]
-    },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\mscsolidity\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
-      "lastModificationDate": 1641317761121,
-      "contentHash": "402cec08d80c01e96ba8d27963975f8d",
-      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
-      "solcConfig": {
-        "version": "0.8.0",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ReentrancyGuard"
       ]
     }
   }
