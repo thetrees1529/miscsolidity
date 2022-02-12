@@ -14,6 +14,7 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
     mapping(uint => mapping(IERC1155 => mapping(uint => uint))) _balances;
 
     function deposit(uint to, IERC1155 token, uint childTokenId, uint amount) public override {
+        require(_exists(to), "Token does not exist.");
         
         _depositing = true;
         token.safeTransferFrom(msg.sender, address(this), childTokenId, amount, "");
