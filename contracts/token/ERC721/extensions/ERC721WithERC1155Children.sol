@@ -13,20 +13,29 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     mapping(uint => mapping(IERC1155 => mapping(uint => uint))) _balances;
 
-    function deposit(uint to, IERC1155 token, uint childTokenId, uint amount) public override {
-        require(_exists(to), "Token does not exist.");
+    function depositERC1155(uint to, IERC1155 token, uint childTokenId, uint amount) public override {
         
-        _depositingERC1155 = true;
-        token.safeTransferFrom(msg.sender, address(this), childTokenId, amount, "");
-        _depositingERC1155 = false;
-
-        _balances[to][token][childTokenId] += amount;
+        _depositFrom(msg.sender, to, token, childTokenId, amount);
 
     }
 
-    function withdraw(uint from, address to, IERC1155 token, uint childTokenId, uint amount) public override {
+    function withdrawERC1155(uint from, address to, IERC1155 token, uint childTokenId, uint amount) public override {
 
         require(_isApprovedOrOwner(msg.sender, from), "Not approved to withdraw from this token.");
+
+        _withdrawTo(from, to, token, childTokenId, amount);
+
+    }
+
+    function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private {
+        require(_exists(to), "Token does not exist.");
+        _depositingERC1155 = true;
+        token.safeTransferFrom(from, address(this), childTokenId, amount, "");
+        _depositingERC1155 = false;
+        _balances[to][token][childTokenId] += amount;
+    }
+
+    function _withdrawTo(uint from, address to, IERC1155 token, uint childTokenId, uint amount) private {
 
         _balances[from][token][childTokenId] -= amount;
         token.safeTransferFrom(address(this), to, childTokenId, amount, "");
