@@ -9,16 +9,16 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     using Counters for Counters.Counter;
 
-    bool _depositing;
+    bool _depositingERC1155;
 
     mapping(uint => mapping(IERC1155 => mapping(uint => uint))) _balances;
 
     function deposit(uint to, IERC1155 token, uint childTokenId, uint amount) public override {
         require(_exists(to), "Token does not exist.");
         
-        _depositing = true;
+        _depositingERC1155 = true;
         token.safeTransferFrom(msg.sender, address(this), childTokenId, amount, "");
-        _depositing = false;
+        _depositingERC1155 = false;
 
         _balances[to][token][childTokenId] += amount;
 
@@ -58,7 +58,7 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
     }
 
     modifier onlyWhenDepositing {
-        require(_depositing);
+        require(_depositingERC1155);
         _;
     }    
 
