@@ -34,7 +34,7 @@ abstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 
         return _owned[tokenId][token][childTokenId];
     }
 
-    function _depositFrom(address from, uint to, IERC721 token, uint childTokenId) private {
+    function _depositFrom(address from, uint to, IERC721 token, uint childTokenId) private cantBeDepositingERC721 {
         require(_exists(to), "Token does not exist.");
         
         _depositingERC721 = true;
@@ -72,6 +72,11 @@ abstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 
 
     modifier onlyWhenDepositingERC721 {
         require(_depositingERC721);
+        _;
+    }  
+
+    modifier cantBeDepositingERC721 {
+        require(!_depositingERC721);
         _;
     }    
 

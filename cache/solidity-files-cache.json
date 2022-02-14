@@ -809,8 +809,8 @@
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\extensions\\ERC721WithERC1155Children.sol": {
-      "lastModificationDate": 1644868151098,
-      "contentHash": "efab3cf71654abe005e6263f16485c02",
+      "lastModificationDate": 1644869160924,
+      "contentHash": "db83c303841e534510418fc38b05c7cb",
       "sourceName": "contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -1025,8 +1025,8 @@
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC721\\extensions\\ERC721WithERC721Children.sol": {
-      "lastModificationDate": 1644868165867,
-      "contentHash": "1bf428c5115b2595d138ec6f5aef6f02",
+      "lastModificationDate": 1644869172493,
+      "contentHash": "325ac0edfa2ef076fe706b4724072050",
       "sourceName": "contracts/token/ERC721/extensions/ERC721WithERC721Children.sol",
       "solcConfig": {
         "version": "0.8.0",

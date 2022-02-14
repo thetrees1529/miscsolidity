@@ -29,7 +29,7 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     }
 
-    function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private {
+    function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private cantBeDepositingERC1155 {
         require(_exists(to), "Token does not exist.");
 
         _beforeERC1155Deposit(to, token, childTokenId, amount);
@@ -84,7 +84,12 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
     modifier onlyWhenDepositingERC1155 {
         require(_depositingERC1155);
         _;
-    }    
+    } 
+
+    modifier cantBeDepositingERC1155 {
+        require(!_depositingERC1155);
+        _;
+    }   
 
 
 }
