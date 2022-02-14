@@ -67,7 +67,7 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
         uint256,
         uint256,
         bytes memory
-    ) public override virtual onlyWhenDepositing returns (bytes4) {
+    ) public override virtual onlyWhenDepositingERC1155 returns (bytes4) {
         return this.onERC1155Received.selector;
     }
 
@@ -81,7 +81,7 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
         revert("Cannot deposit here.");
     }
 
-    modifier onlyWhenDepositing {
+    modifier onlyWhenDepositingERC1155 {
         require(_depositingERC1155);
         _;
     }    

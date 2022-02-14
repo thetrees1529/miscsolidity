@@ -66,11 +66,11 @@ abstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 
         address,
         uint256,
         bytes memory
-    ) public override virtual onlyWhenDepositing returns (bytes4) {
+    ) public override virtual onlyWhenDepositingERC721 returns (bytes4) {
         return this.onERC721Received.selector;
     }
 
-    modifier onlyWhenDepositing {
+    modifier onlyWhenDepositingERC721 {
         require(_depositingERC721);
         _;
     }    

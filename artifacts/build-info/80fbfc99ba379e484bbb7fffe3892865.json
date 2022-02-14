@@ -1,5 +1,5 @@
 {
-  "id": "172063cc3b35e429967b6e827be4ec56",
+  "id": "80fbfc99ba379e484bbb7fffe3892865",
   "_format": "hh-sol-build-info-1",
   "solcVersion": "0.8.0",
   "solcLongVersion": "0.8.0+commit.c7dfd78e",
@@ -7,7 +7,7 @@
     "language": "Solidity",
     "sources": {
       "contracts/token/ERC721/extensions/ERC721WithERC721Children.sol": {
-        "content": "//SPDX-License-Identifier: Unlicensed\r\n\r\nimport \"@openzeppelin/contracts/utils/Counters.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\";\r\nimport \"./IERC721WithERC721Children.sol\";\r\npragma solidity ^0.8.0;\r\n\r\nabstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 {\r\n\r\n    using Counters for Counters.Counter;\r\n\r\n    bool _depositingERC721;\r\n\r\n    mapping(uint => mapping(IERC721 => mapping(uint => bool))) _owned;\r\n\r\n    function depositERC721(uint to, IERC721 token, uint childTokenId) public override {\r\n        \r\n        _beforeERC721Deposit(to, token, childTokenId);\r\n        _depositFrom(msg.sender, to, token, childTokenId);\r\n\r\n    }\r\n\r\n    function withdrawERC721(uint from, address to, IERC721 token, uint childTokenId) public override {\r\n\r\n        require(_isApprovedOrOwner(msg.sender, from), \"Not approved to withdraw from this token.\");\r\n\r\n        _beforeERC721Withdrawal(from, to, token, childTokenId);\r\n        _withdrawTo(from, to, token, childTokenId);\r\n\r\n    }\r\n\r\n    function isOwnerOfERC721Child(uint tokenId, IERC721 token, uint childTokenId) public override view returns(bool) {\r\n        return _owned[tokenId][token][childTokenId];\r\n    }\r\n\r\n    function _depositFrom(address from, uint to, IERC721 token, uint childTokenId) private {\r\n        require(_exists(to), \"Token does not exist.\");\r\n        \r\n        _depositingERC721 = true;\r\n        token.safeTransferFrom(from, address(this), childTokenId, \"\");\r\n        _depositingERC721 = false;\r\n\r\n        _owned[to][token][childTokenId] = true;\r\n    }\r\n\r\n    function _withdrawTo(uint from, address to, IERC721 token, uint childTokenId) private {\r\n\r\n        require(_exists(from), \"Token does not exist.\");\r\n        require(_owned[from][token][childTokenId] == true, \"Token does not own child token.\");\r\n        _owned[from][token][childTokenId] = false;\r\n        token.safeTransferFrom(address(this), to, childTokenId, \"\");\r\n\r\n    }\r\n\r\n    function _beforeERC721Deposit(uint tokenId, IERC721 token, uint childTokenId) internal virtual {\r\n        \r\n    }\r\n\r\n    function _beforeERC721Withdrawal(uint tokenId, address to, IERC721 token, uint childTokenId) internal virtual {\r\n        \r\n    }\r\n\r\n    function onERC721Received(\r\n        address,\r\n        address,\r\n        uint256,\r\n        bytes memory\r\n    ) public override virtual onlyWhenDepositing returns (bytes4) {\r\n        return this.onERC721Received.selector;\r\n    }\r\n\r\n    modifier onlyWhenDepositing {\r\n        require(_depositingERC721);\r\n        _;\r\n    }    \r\n\r\n\r\n}"
+        "content": "//SPDX-License-Identifier: Unlicensed\r\n\r\nimport \"@openzeppelin/contracts/utils/Counters.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\";\r\nimport \"./IERC721WithERC721Children.sol\";\r\npragma solidity ^0.8.0;\r\n\r\nabstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 {\r\n\r\n    using Counters for Counters.Counter;\r\n\r\n    bool _depositingERC721;\r\n\r\n    mapping(uint => mapping(IERC721 => mapping(uint => bool))) _owned;\r\n\r\n    function depositERC721(uint to, IERC721 token, uint childTokenId) public override {\r\n        \r\n        _beforeERC721Deposit(to, token, childTokenId);\r\n        _depositFrom(msg.sender, to, token, childTokenId);\r\n\r\n    }\r\n\r\n    function withdrawERC721(uint from, address to, IERC721 token, uint childTokenId) public override {\r\n\r\n        require(_isApprovedOrOwner(msg.sender, from), \"Not approved to withdraw from this token.\");\r\n\r\n        _beforeERC721Withdrawal(from, to, token, childTokenId);\r\n        _withdrawTo(from, to, token, childTokenId);\r\n\r\n    }\r\n\r\n    function isOwnerOfERC721Child(uint tokenId, IERC721 token, uint childTokenId) public override view returns(bool) {\r\n        return _owned[tokenId][token][childTokenId];\r\n    }\r\n\r\n    function _depositFrom(address from, uint to, IERC721 token, uint childTokenId) private {\r\n        require(_exists(to), \"Token does not exist.\");\r\n        \r\n        _depositingERC721 = true;\r\n        token.safeTransferFrom(from, address(this), childTokenId, \"\");\r\n        _depositingERC721 = false;\r\n\r\n        _owned[to][token][childTokenId] = true;\r\n    }\r\n\r\n    function _withdrawTo(uint from, address to, IERC721 token, uint childTokenId) private {\r\n\r\n        require(_exists(from), \"Token does not exist.\");\r\n        require(_owned[from][token][childTokenId] == true, \"Token does not own child token.\");\r\n        _owned[from][token][childTokenId] = false;\r\n        token.safeTransferFrom(address(this), to, childTokenId, \"\");\r\n\r\n    }\r\n\r\n    function _beforeERC721Deposit(uint tokenId, IERC721 token, uint childTokenId) internal virtual {\r\n        \r\n    }\r\n\r\n    function _beforeERC721Withdrawal(uint tokenId, address to, IERC721 token, uint childTokenId) internal virtual {\r\n        \r\n    }\r\n\r\n    function onERC721Received(\r\n        address,\r\n        address,\r\n        uint256,\r\n        bytes memory\r\n    ) public override virtual onlyWhenDepositingERC721 returns (bytes4) {\r\n        return this.onERC721Received.selector;\r\n    }\r\n\r\n    modifier onlyWhenDepositingERC721 {\r\n        require(_depositingERC721);\r\n        _;\r\n    }    \r\n\r\n\r\n}"
       },
       "@openzeppelin/contracts/utils/Counters.sol": {
         "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.0 (utils/Counters.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @title Counters\n * @author Matt Condon (@shrugs)\n * @dev Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number\n * of elements in a mapping, issuing ERC721 ids, or counting request ids.\n *\n * Include with `using Counters for Counters.Counter;`\n */\nlibrary Counters {\n    struct Counter {\n        // This variable should never be directly accessed by users of the library: interactions must be restricted to\n        // the library's function. As of Solidity v0.5.2, this cannot be enforced, though there is a proposal to add\n        // this feature: see https://github.com/ethereum/solidity/issues/4637\n        uint256 _value; // default: 0\n    }\n\n    function current(Counter storage counter) internal view returns (uint256) {\n        return counter._value;\n    }\n\n    function increment(Counter storage counter) internal {\n        unchecked {\n            counter._value += 1;\n        }\n    }\n\n    function decrement(Counter storage counter) internal {\n        uint256 value = counter._value;\n        require(value > 0, \"Counter: decrement overflow\");\n        unchecked {\n            counter._value = value - 1;\n        }\n    }\n\n    function reset(Counter storage counter) internal {\n        counter._value = 0;\n    }\n}\n"
@@ -43,7 +43,7 @@
         "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.0 (utils/introspection/IERC165.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Interface of the ERC165 standard, as defined in the\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\n *\n * Implementers can declare support of contract interfaces, which can then be\n * queried by others ({ERC165Checker}).\n *\n * For an implementation, see {ERC165}.\n */\ninterface IERC165 {\n    /**\n     * @dev Returns true if this contract implements the interface defined by\n     * `interfaceId`. See the corresponding\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\n     * to learn more about how these ids are created.\n     *\n     * This function call must use less than 30 000 gas.\n     */\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\n}\n"
       },
       "contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol": {
-        "content": "//SPDX-License-Identifier: Unlicensed\r\n\r\nimport \"@openzeppelin/contracts/utils/Counters.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\r\nimport \"./IERC721WithERC1155Children.sol\";\r\npragma solidity ^0.8.0;\r\n\r\nabstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC721 {\r\n\r\n    using Counters for Counters.Counter;\r\n\r\n    bool _depositingERC1155;\r\n\r\n    mapping(uint => mapping(IERC1155 => mapping(uint => uint))) _balances;\r\n\r\n    function depositERC1155(uint to, IERC1155 token, uint childTokenId, uint amount) public override {\r\n        \r\n        _beforeERC1155Deposit(to, token, childTokenId, amount);\r\n        _depositFrom(msg.sender, to, token, childTokenId, amount);\r\n\r\n    }\r\n\r\n    function withdrawERC1155(uint from, address to, IERC1155 token, uint childTokenId, uint amount) public override {\r\n\r\n        require(_isApprovedOrOwner(msg.sender, from), \"Not approved to withdraw from this token.\");\r\n\r\n        _beforeERC1155Withdrawal(from, to, token, childTokenId, amount);\r\n        _withdrawTo(from, to, token, childTokenId, amount);\r\n\r\n    }\r\n\r\n    function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private {\r\n        require(_exists(to), \"Token does not exist.\");\r\n\r\n        _beforeERC1155Deposit(to, token, childTokenId, amount);\r\n\r\n        _depositingERC1155 = true;\r\n        token.safeTransferFrom(from, address(this), childTokenId, amount, \"\");\r\n        _depositingERC1155 = false;\r\n        _balances[to][token][childTokenId] += amount;\r\n    }\r\n\r\n    function _withdrawTo(uint from, address to, IERC1155 token, uint childTokenId, uint amount) private {\r\n\r\n        _beforeERC1155Withdrawal(from, to, token, childTokenId, amount);\r\n\r\n        _balances[from][token][childTokenId] -= amount;\r\n        token.safeTransferFrom(address(this), to, childTokenId, amount, \"\");\r\n\r\n    }\r\n\r\n    function balanceOfERC1155Child(uint tokenId, IERC1155 token, uint childTokenId) public override view returns(uint) {\r\n        return _balances[tokenId][token][childTokenId];\r\n    }\r\n\r\n    function _beforeERC1155Deposit(uint tokenId, IERC1155 token, uint childTokenId, uint amount) internal virtual {\r\n\r\n    }\r\n\r\n    function _beforeERC1155Withdrawal(uint tokenId, address to, IERC1155 token, uint childTokenId, uint amount) internal virtual {\r\n        \r\n    }\r\n\r\n    function onERC1155Received(\r\n        address,\r\n        address,\r\n        uint256,\r\n        uint256,\r\n        bytes memory\r\n    ) public override virtual onlyWhenDepositing returns (bytes4) {\r\n        return this.onERC1155Received.selector;\r\n    }\r\n\r\n    function onERC1155BatchReceived(\r\n        address,\r\n        address,\r\n        uint256[] memory,\r\n        uint256[] memory,\r\n        bytes memory\r\n    ) public override virtual returns (bytes4) {\r\n        revert(\"Cannot deposit here.\");\r\n    }\r\n\r\n    modifier onlyWhenDepositing {\r\n        require(_depositingERC1155);\r\n        _;\r\n    }    \r\n\r\n\r\n}"
+        "content": "//SPDX-License-Identifier: Unlicensed\r\n\r\nimport \"@openzeppelin/contracts/utils/Counters.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\r\nimport \"./IERC721WithERC1155Children.sol\";\r\npragma solidity ^0.8.0;\r\n\r\nabstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC721 {\r\n\r\n    using Counters for Counters.Counter;\r\n\r\n    bool _depositingERC1155;\r\n\r\n    mapping(uint => mapping(IERC1155 => mapping(uint => uint))) _balances;\r\n\r\n    function depositERC1155(uint to, IERC1155 token, uint childTokenId, uint amount) public override {\r\n        \r\n        _beforeERC1155Deposit(to, token, childTokenId, amount);\r\n        _depositFrom(msg.sender, to, token, childTokenId, amount);\r\n\r\n    }\r\n\r\n    function withdrawERC1155(uint from, address to, IERC1155 token, uint childTokenId, uint amount) public override {\r\n\r\n        require(_isApprovedOrOwner(msg.sender, from), \"Not approved to withdraw from this token.\");\r\n\r\n        _beforeERC1155Withdrawal(from, to, token, childTokenId, amount);\r\n        _withdrawTo(from, to, token, childTokenId, amount);\r\n\r\n    }\r\n\r\n    function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private {\r\n        require(_exists(to), \"Token does not exist.\");\r\n\r\n        _beforeERC1155Deposit(to, token, childTokenId, amount);\r\n\r\n        _depositingERC1155 = true;\r\n        token.safeTransferFrom(from, address(this), childTokenId, amount, \"\");\r\n        _depositingERC1155 = false;\r\n        _balances[to][token][childTokenId] += amount;\r\n    }\r\n\r\n    function _withdrawTo(uint from, address to, IERC1155 token, uint childTokenId, uint amount) private {\r\n\r\n        _beforeERC1155Withdrawal(from, to, token, childTokenId, amount);\r\n\r\n        _balances[from][token][childTokenId] -= amount;\r\n        token.safeTransferFrom(address(this), to, childTokenId, amount, \"\");\r\n\r\n    }\r\n\r\n    function balanceOfERC1155Child(uint tokenId, IERC1155 token, uint childTokenId) public override view returns(uint) {\r\n        return _balances[tokenId][token][childTokenId];\r\n    }\r\n\r\n    function _beforeERC1155Deposit(uint tokenId, IERC1155 token, uint childTokenId, uint amount) internal virtual {\r\n\r\n    }\r\n\r\n    function _beforeERC1155Withdrawal(uint tokenId, address to, IERC1155 token, uint childTokenId, uint amount) internal virtual {\r\n        \r\n    }\r\n\r\n    function onERC1155Received(\r\n        address,\r\n        address,\r\n        uint256,\r\n        uint256,\r\n        bytes memory\r\n    ) public override virtual onlyWhenDepositingERC1155 returns (bytes4) {\r\n        return this.onERC1155Received.selector;\r\n    }\r\n\r\n    function onERC1155BatchReceived(\r\n        address,\r\n        address,\r\n        uint256[] memory,\r\n        uint256[] memory,\r\n        bytes memory\r\n    ) public override virtual returns (bytes4) {\r\n        revert(\"Cannot deposit here.\");\r\n    }\r\n\r\n    modifier onlyWhenDepositingERC1155 {\r\n        require(_depositingERC1155);\r\n        _;\r\n    }    \r\n\r\n\r\n}"
       },
       "contracts/token/ERC721/extensions/IERC721WithERC1155Children.sol": {
         "content": "//SPDX-License-Identifier: Unlicensed\r\n\r\nimport \"@openzeppelin/contracts/token/ERC1155/IERC1155.sol\";\r\nimport \"@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol\";\r\n\r\npragma solidity ^0.8.0;\r\n\r\ninterface IERC721WithERC1155Children is IERC1155Receiver {\r\n\r\n    function depositERC1155(uint to, IERC1155 token, uint childTokenId, uint amount) external;\r\n\r\n    function withdrawERC1155(uint from, address to, IERC1155 token, uint childTokenId, uint amount) external;\r\n\r\n    function balanceOfERC1155Child(uint tokenId, IERC1155 token, uint childTokenId) external view returns(uint);\r\n\r\n}"
@@ -16424,7 +16424,7 @@
               "withdrawERC1155(uint256,address,address,uint256,uint256)": "1b7f7ddf"
             }
           },
-          "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"balanceOfERC1155Child\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"depositERC1155\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC1155BatchReceived\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC1155Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"from\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdrawERC1155\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"approve(address,uint256)\":{\"details\":\"See {IERC721-approve}.\"},\"balanceOf(address)\":{\"details\":\"See {IERC721-balanceOf}.\"},\"getApproved(uint256)\":{\"details\":\"See {IERC721-getApproved}.\"},\"isApprovedForAll(address,address)\":{\"details\":\"See {IERC721-isApprovedForAll}.\"},\"name()\":{\"details\":\"See {IERC721Metadata-name}.\"},\"ownerOf(uint256)\":{\"details\":\"See {IERC721-ownerOf}.\"},\"safeTransferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"safeTransferFrom(address,address,uint256,bytes)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"setApprovalForAll(address,bool)\":{\"details\":\"See {IERC721-setApprovalForAll}.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"symbol()\":{\"details\":\"See {IERC721Metadata-symbol}.\"},\"tokenURI(uint256)\":{\"details\":\"See {IERC721Metadata-tokenURI}.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-transferFrom}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol\":\"ERC721WithERC1155Children\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC1155/IERC1155.sol\":{\"keccak256\":\"0xf920acc579a6c2067ca587b8d3993f6e737ac54f2dc3c4cd179d8df0e3f351d9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://900486cb37c3b173462e4d5929a7df08ef91d9ee544176cfa25189f3b556641e\",\"dweb:/ipfs/QmTMbsipusiSnqiUj9wnPjwdzUALoKhmVGRhhcYn36jGJg\"]},\"@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol\":{\"keccak256\":\"0xaca482b8f27dbab77b82282987d50a280c65f6254f3cac64e68ccd61f55e4822\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8d246c370ac1e074a0914bb0ffefddae0b69b051abb88962b4ed402d871311b2\",\"dweb:/ipfs/QmWmHh8LX2D3LP8KeXqjRE2Em4Xf2Ky84UXdtzp6W6ubqA\"]},\"@openzeppelin/contracts/token/ERC721/ERC721.sol\":{\"keccak256\":\"0x1ba5cf152c15dc0c785310feeb61e1f74387fc7bdc2aba5d90733f791606d4bf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://38db14c62d6431df042a7ca07fd021ea52ccdbd03f0be2b5c4ab034a56126d38\",\"dweb:/ipfs/QmbCHTCLP6bz8omQXrP8VuxFGdK9Hh3jqfrSTr38WNpTk4\"]},\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x872ba21af7c1f0ae04a715beca31e8fcac764d6c8762940b0fe1bfb6ed8e86f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://497017741d74878b56a67ad51e98061bd9ec0e6e4fdbfef0e2ab51523f4c16de\",\"dweb:/ipfs/QmWfkpRHksy8jFywqYxdmMqdkQ1hxrGTPoNBXbZ48zTvyv\"]},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"keccak256\":\"0x483b106386dd309f168672928252a19f30c30efb4d17d4b8e2b0f587ca784a11\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://189a39d066c6886ddbe86c79bb36d6cbe66e98bc6a94956e28f5503dae4ad406\",\"dweb:/ipfs/QmT3s3PwCdXqHLJk26kcnedrRGTC9T18z52i9Be7PV9ppc\"]},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":{\"keccak256\":\"0x6052c25b1021f2b0e733fb52ca11948cb2f08cb66076397507243a6e8a8d7776\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32ac4547a76b28021a007853958284aa8a15a64f1aeec83cb797b7fd60a46b56\",\"dweb:/ipfs/QmTJWQF8j586oaYNpdZv55xnzyHVQc68XN4eBNeiLbKX8d\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0x9944d1038f27dcebff810d7ba16b3b8058b967173d76874fb72dd7cd84129656\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7c455cda07c5f8978c57e545ddde382552d3a55b6e3682e0f809ed07ec7defbe\",\"dweb:/ipfs/QmXkoKbxyMcMzjYdkXi5t4t3ZjBQ81pj7AaanS9jhePxyt\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x7736c187e6f1358c1ea9350a2a21aa8528dec1c2f43b374a9067465a3a51f5d3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4fd625dca17657403af518cc6c8ab5c54c58898cf6e912ca2e1b0f3194ad0405\",\"dweb:/ipfs/QmQVv7YeeKmaS11bg7YDTeeGDk6i7sV8LMMfohaLM4SiRu\"]},\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0x74f630d2664c1581a1cbd0730d4ba119b3a184ef90c65f3a934be4d16d0e58a1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cadad0b133129f946a53e0f61fa387803ccdc010d9c794da0738bb7fc5001b66\",\"dweb:/ipfs/QmQdTBpUT9WgDuCm7womDFiAnksepw6Fmi5Z5vv1H17Qr1\"]},\"@openzeppelin/contracts/utils/Strings.sol\":{\"keccak256\":\"0x5fa25f305839292fab713256214f2868e0257d29826b14282bbd7f1e34f5af38\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3de4074848249e00e1336db857e3fa8f78b4fe11d4a887f71050c22023b2132\",\"dweb:/ipfs/QmbL6k2zFGndQPNPG7vCDivtjKam3quJSrEbRuVsNo4hBw\"]},\"@openzeppelin/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x905cd0ecd91d1de79a4679d745b79cf852ca8ccda5d25d1c49c6bd17a5edc0cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8dd1601fcd370546d8c06ea1902d7e7364fc490fbf0ebc3004230ef1f5db473c\",\"dweb:/ipfs/Qmb8zbC3TjWFtcuyP3KEEaegMkPcfeKAcPrwzvkAoMR3cZ\"]},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x6aa521718bf139b44ce56f194f6aea1d590cacef995b5a84703fb1579fa49be9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://100f8d367b5e94eb9cb991914f1de133cf272654c0708faa893bbc17a5b35b93\",\"dweb:/ipfs/QmZeBojmgXq821dL1TJKFb58B1FogM9jL3u7hXQ8hTEBKT\"]},\"contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol\":{\"keccak256\":\"0x8caf9f3d72be840b1087fbeeb943e61f6945eda37addd91c4019b53ea9482067\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://4cef222165be5d05a2be788952ecdba3b6ea71be987309315ee691aa9f03f024\",\"dweb:/ipfs/QmcdV1uKLmUAZQYwFEBLbGd9fkXGVzGz88U6RtbAyBYKbF\"]},\"contracts/token/ERC721/extensions/IERC721WithERC1155Children.sol\":{\"keccak256\":\"0x84e24ed3766be47efdc0319419c12fc6a07456ace1be589243d9a819f825051b\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://037cb9bb1651e2b5b566a8c62cc094ae76ebca5cd72f8befabd88f8ca4d324b3\",\"dweb:/ipfs/QmSbmAzcjVnAx1cF8RijLScfj5T3RA7HZn6zHAhw9VKkAe\"]}},\"version\":1}"
+          "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"balanceOfERC1155Child\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"depositERC1155\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC1155BatchReceived\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC1155Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"from\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"contract IERC1155\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdrawERC1155\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"approve(address,uint256)\":{\"details\":\"See {IERC721-approve}.\"},\"balanceOf(address)\":{\"details\":\"See {IERC721-balanceOf}.\"},\"getApproved(uint256)\":{\"details\":\"See {IERC721-getApproved}.\"},\"isApprovedForAll(address,address)\":{\"details\":\"See {IERC721-isApprovedForAll}.\"},\"name()\":{\"details\":\"See {IERC721Metadata-name}.\"},\"ownerOf(uint256)\":{\"details\":\"See {IERC721-ownerOf}.\"},\"safeTransferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"safeTransferFrom(address,address,uint256,bytes)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"setApprovalForAll(address,bool)\":{\"details\":\"See {IERC721-setApprovalForAll}.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"symbol()\":{\"details\":\"See {IERC721Metadata-symbol}.\"},\"tokenURI(uint256)\":{\"details\":\"See {IERC721Metadata-tokenURI}.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-transferFrom}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol\":\"ERC721WithERC1155Children\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC1155/IERC1155.sol\":{\"keccak256\":\"0xf920acc579a6c2067ca587b8d3993f6e737ac54f2dc3c4cd179d8df0e3f351d9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://900486cb37c3b173462e4d5929a7df08ef91d9ee544176cfa25189f3b556641e\",\"dweb:/ipfs/QmTMbsipusiSnqiUj9wnPjwdzUALoKhmVGRhhcYn36jGJg\"]},\"@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol\":{\"keccak256\":\"0xaca482b8f27dbab77b82282987d50a280c65f6254f3cac64e68ccd61f55e4822\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8d246c370ac1e074a0914bb0ffefddae0b69b051abb88962b4ed402d871311b2\",\"dweb:/ipfs/QmWmHh8LX2D3LP8KeXqjRE2Em4Xf2Ky84UXdtzp6W6ubqA\"]},\"@openzeppelin/contracts/token/ERC721/ERC721.sol\":{\"keccak256\":\"0x1ba5cf152c15dc0c785310feeb61e1f74387fc7bdc2aba5d90733f791606d4bf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://38db14c62d6431df042a7ca07fd021ea52ccdbd03f0be2b5c4ab034a56126d38\",\"dweb:/ipfs/QmbCHTCLP6bz8omQXrP8VuxFGdK9Hh3jqfrSTr38WNpTk4\"]},\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x872ba21af7c1f0ae04a715beca31e8fcac764d6c8762940b0fe1bfb6ed8e86f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://497017741d74878b56a67ad51e98061bd9ec0e6e4fdbfef0e2ab51523f4c16de\",\"dweb:/ipfs/QmWfkpRHksy8jFywqYxdmMqdkQ1hxrGTPoNBXbZ48zTvyv\"]},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"keccak256\":\"0x483b106386dd309f168672928252a19f30c30efb4d17d4b8e2b0f587ca784a11\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://189a39d066c6886ddbe86c79bb36d6cbe66e98bc6a94956e28f5503dae4ad406\",\"dweb:/ipfs/QmT3s3PwCdXqHLJk26kcnedrRGTC9T18z52i9Be7PV9ppc\"]},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":{\"keccak256\":\"0x6052c25b1021f2b0e733fb52ca11948cb2f08cb66076397507243a6e8a8d7776\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32ac4547a76b28021a007853958284aa8a15a64f1aeec83cb797b7fd60a46b56\",\"dweb:/ipfs/QmTJWQF8j586oaYNpdZv55xnzyHVQc68XN4eBNeiLbKX8d\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0x9944d1038f27dcebff810d7ba16b3b8058b967173d76874fb72dd7cd84129656\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7c455cda07c5f8978c57e545ddde382552d3a55b6e3682e0f809ed07ec7defbe\",\"dweb:/ipfs/QmXkoKbxyMcMzjYdkXi5t4t3ZjBQ81pj7AaanS9jhePxyt\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x7736c187e6f1358c1ea9350a2a21aa8528dec1c2f43b374a9067465a3a51f5d3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4fd625dca17657403af518cc6c8ab5c54c58898cf6e912ca2e1b0f3194ad0405\",\"dweb:/ipfs/QmQVv7YeeKmaS11bg7YDTeeGDk6i7sV8LMMfohaLM4SiRu\"]},\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0x74f630d2664c1581a1cbd0730d4ba119b3a184ef90c65f3a934be4d16d0e58a1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cadad0b133129f946a53e0f61fa387803ccdc010d9c794da0738bb7fc5001b66\",\"dweb:/ipfs/QmQdTBpUT9WgDuCm7womDFiAnksepw6Fmi5Z5vv1H17Qr1\"]},\"@openzeppelin/contracts/utils/Strings.sol\":{\"keccak256\":\"0x5fa25f305839292fab713256214f2868e0257d29826b14282bbd7f1e34f5af38\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3de4074848249e00e1336db857e3fa8f78b4fe11d4a887f71050c22023b2132\",\"dweb:/ipfs/QmbL6k2zFGndQPNPG7vCDivtjKam3quJSrEbRuVsNo4hBw\"]},\"@openzeppelin/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x905cd0ecd91d1de79a4679d745b79cf852ca8ccda5d25d1c49c6bd17a5edc0cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8dd1601fcd370546d8c06ea1902d7e7364fc490fbf0ebc3004230ef1f5db473c\",\"dweb:/ipfs/Qmb8zbC3TjWFtcuyP3KEEaegMkPcfeKAcPrwzvkAoMR3cZ\"]},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x6aa521718bf139b44ce56f194f6aea1d590cacef995b5a84703fb1579fa49be9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://100f8d367b5e94eb9cb991914f1de133cf272654c0708faa893bbc17a5b35b93\",\"dweb:/ipfs/QmZeBojmgXq821dL1TJKFb58B1FogM9jL3u7hXQ8hTEBKT\"]},\"contracts/token/ERC721/extensions/ERC721WithERC1155Children.sol\":{\"keccak256\":\"0xf09d66d8c0219650d299b3506806f5b07297e16939cb05733c673938e8368034\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://58cac7e29f35be8fcd4c8d8e2f2dbee054dd49561ee55ff5c3ce05700aa558c4\",\"dweb:/ipfs/QmPkMcCKbLW4KnCZMbUYjkPXaRoE2xwAc9wsGQxqjfy741\"]},\"contracts/token/ERC721/extensions/IERC721WithERC1155Children.sol\":{\"keccak256\":\"0x84e24ed3766be47efdc0319419c12fc6a07456ace1be589243d9a819f825051b\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://037cb9bb1651e2b5b566a8c62cc094ae76ebca5cd72f8befabd88f8ca4d324b3\",\"dweb:/ipfs/QmSbmAzcjVnAx1cF8RijLScfj5T3RA7HZn6zHAhw9VKkAe\"]}},\"version\":1}"
         }
       },
       "contracts/token/ERC721/extensions/ERC721WithERC721Children.sol": {
@@ -16911,7 +16911,7 @@
               "withdrawERC721(uint256,address,address,uint256)": "1ca55caa"
             }
           },
-          "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"depositERC721\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"isOwnerOfERC721Child\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC721Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"from\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"withdrawERC721\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"approve(address,uint256)\":{\"details\":\"See {IERC721-approve}.\"},\"balanceOf(address)\":{\"details\":\"See {IERC721-balanceOf}.\"},\"getApproved(uint256)\":{\"details\":\"See {IERC721-getApproved}.\"},\"isApprovedForAll(address,address)\":{\"details\":\"See {IERC721-isApprovedForAll}.\"},\"name()\":{\"details\":\"See {IERC721Metadata-name}.\"},\"ownerOf(uint256)\":{\"details\":\"See {IERC721-ownerOf}.\"},\"safeTransferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"safeTransferFrom(address,address,uint256,bytes)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"setApprovalForAll(address,bool)\":{\"details\":\"See {IERC721-setApprovalForAll}.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"symbol()\":{\"details\":\"See {IERC721Metadata-symbol}.\"},\"tokenURI(uint256)\":{\"details\":\"See {IERC721Metadata-tokenURI}.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-transferFrom}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/token/ERC721/extensions/ERC721WithERC721Children.sol\":\"ERC721WithERC721Children\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC721/ERC721.sol\":{\"keccak256\":\"0x1ba5cf152c15dc0c785310feeb61e1f74387fc7bdc2aba5d90733f791606d4bf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://38db14c62d6431df042a7ca07fd021ea52ccdbd03f0be2b5c4ab034a56126d38\",\"dweb:/ipfs/QmbCHTCLP6bz8omQXrP8VuxFGdK9Hh3jqfrSTr38WNpTk4\"]},\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x872ba21af7c1f0ae04a715beca31e8fcac764d6c8762940b0fe1bfb6ed8e86f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://497017741d74878b56a67ad51e98061bd9ec0e6e4fdbfef0e2ab51523f4c16de\",\"dweb:/ipfs/QmWfkpRHksy8jFywqYxdmMqdkQ1hxrGTPoNBXbZ48zTvyv\"]},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"keccak256\":\"0x483b106386dd309f168672928252a19f30c30efb4d17d4b8e2b0f587ca784a11\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://189a39d066c6886ddbe86c79bb36d6cbe66e98bc6a94956e28f5503dae4ad406\",\"dweb:/ipfs/QmT3s3PwCdXqHLJk26kcnedrRGTC9T18z52i9Be7PV9ppc\"]},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":{\"keccak256\":\"0x6052c25b1021f2b0e733fb52ca11948cb2f08cb66076397507243a6e8a8d7776\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32ac4547a76b28021a007853958284aa8a15a64f1aeec83cb797b7fd60a46b56\",\"dweb:/ipfs/QmTJWQF8j586oaYNpdZv55xnzyHVQc68XN4eBNeiLbKX8d\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0x9944d1038f27dcebff810d7ba16b3b8058b967173d76874fb72dd7cd84129656\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7c455cda07c5f8978c57e545ddde382552d3a55b6e3682e0f809ed07ec7defbe\",\"dweb:/ipfs/QmXkoKbxyMcMzjYdkXi5t4t3ZjBQ81pj7AaanS9jhePxyt\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x7736c187e6f1358c1ea9350a2a21aa8528dec1c2f43b374a9067465a3a51f5d3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4fd625dca17657403af518cc6c8ab5c54c58898cf6e912ca2e1b0f3194ad0405\",\"dweb:/ipfs/QmQVv7YeeKmaS11bg7YDTeeGDk6i7sV8LMMfohaLM4SiRu\"]},\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0x74f630d2664c1581a1cbd0730d4ba119b3a184ef90c65f3a934be4d16d0e58a1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cadad0b133129f946a53e0f61fa387803ccdc010d9c794da0738bb7fc5001b66\",\"dweb:/ipfs/QmQdTBpUT9WgDuCm7womDFiAnksepw6Fmi5Z5vv1H17Qr1\"]},\"@openzeppelin/contracts/utils/Strings.sol\":{\"keccak256\":\"0x5fa25f305839292fab713256214f2868e0257d29826b14282bbd7f1e34f5af38\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3de4074848249e00e1336db857e3fa8f78b4fe11d4a887f71050c22023b2132\",\"dweb:/ipfs/QmbL6k2zFGndQPNPG7vCDivtjKam3quJSrEbRuVsNo4hBw\"]},\"@openzeppelin/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x905cd0ecd91d1de79a4679d745b79cf852ca8ccda5d25d1c49c6bd17a5edc0cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8dd1601fcd370546d8c06ea1902d7e7364fc490fbf0ebc3004230ef1f5db473c\",\"dweb:/ipfs/Qmb8zbC3TjWFtcuyP3KEEaegMkPcfeKAcPrwzvkAoMR3cZ\"]},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x6aa521718bf139b44ce56f194f6aea1d590cacef995b5a84703fb1579fa49be9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://100f8d367b5e94eb9cb991914f1de133cf272654c0708faa893bbc17a5b35b93\",\"dweb:/ipfs/QmZeBojmgXq821dL1TJKFb58B1FogM9jL3u7hXQ8hTEBKT\"]},\"contracts/token/ERC721/extensions/ERC721WithERC721Children.sol\":{\"keccak256\":\"0x463db686435ccc270ca2d0d9cb331f0b112e13c0cd561487163db7d3dfed404a\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://fd0c8dcc78f8306f4afd7bb50915b7b0c5d3499ea2a310128f6f3e1fe614a2b7\",\"dweb:/ipfs/Qma9L8ZcM34KCTsSuAABeuoHJxj3r3fxJtZduaCRkR5cGD\"]},\"contracts/token/ERC721/extensions/IERC721WithERC721Children.sol\":{\"keccak256\":\"0x4ed77531d5a648adcb16e679e1e588f40016b58902fbb6ae64579f5e747af4ad\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://e2cd0691039336ddfaa86c548310d1759ba89409ea0d85f5334cc77adc348d37\",\"dweb:/ipfs/QmRZyoQgemxjboKPtB3RWY6HjLD4RqpZsfJgLxv71yd5yB\"]}},\"version\":1}"
+          "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"depositERC721\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"isOwnerOfERC721Child\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"onERC721Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"from\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"contract IERC721\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"childTokenId\",\"type\":\"uint256\"}],\"name\":\"withdrawERC721\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"approve(address,uint256)\":{\"details\":\"See {IERC721-approve}.\"},\"balanceOf(address)\":{\"details\":\"See {IERC721-balanceOf}.\"},\"getApproved(uint256)\":{\"details\":\"See {IERC721-getApproved}.\"},\"isApprovedForAll(address,address)\":{\"details\":\"See {IERC721-isApprovedForAll}.\"},\"name()\":{\"details\":\"See {IERC721Metadata-name}.\"},\"ownerOf(uint256)\":{\"details\":\"See {IERC721-ownerOf}.\"},\"safeTransferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"safeTransferFrom(address,address,uint256,bytes)\":{\"details\":\"See {IERC721-safeTransferFrom}.\"},\"setApprovalForAll(address,bool)\":{\"details\":\"See {IERC721-setApprovalForAll}.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"symbol()\":{\"details\":\"See {IERC721Metadata-symbol}.\"},\"tokenURI(uint256)\":{\"details\":\"See {IERC721Metadata-tokenURI}.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"See {IERC721-transferFrom}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/token/ERC721/extensions/ERC721WithERC721Children.sol\":\"ERC721WithERC721Children\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC721/ERC721.sol\":{\"keccak256\":\"0x1ba5cf152c15dc0c785310feeb61e1f74387fc7bdc2aba5d90733f791606d4bf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://38db14c62d6431df042a7ca07fd021ea52ccdbd03f0be2b5c4ab034a56126d38\",\"dweb:/ipfs/QmbCHTCLP6bz8omQXrP8VuxFGdK9Hh3jqfrSTr38WNpTk4\"]},\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x872ba21af7c1f0ae04a715beca31e8fcac764d6c8762940b0fe1bfb6ed8e86f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://497017741d74878b56a67ad51e98061bd9ec0e6e4fdbfef0e2ab51523f4c16de\",\"dweb:/ipfs/QmWfkpRHksy8jFywqYxdmMqdkQ1hxrGTPoNBXbZ48zTvyv\"]},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"keccak256\":\"0x483b106386dd309f168672928252a19f30c30efb4d17d4b8e2b0f587ca784a11\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://189a39d066c6886ddbe86c79bb36d6cbe66e98bc6a94956e28f5503dae4ad406\",\"dweb:/ipfs/QmT3s3PwCdXqHLJk26kcnedrRGTC9T18z52i9Be7PV9ppc\"]},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol\":{\"keccak256\":\"0x6052c25b1021f2b0e733fb52ca11948cb2f08cb66076397507243a6e8a8d7776\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32ac4547a76b28021a007853958284aa8a15a64f1aeec83cb797b7fd60a46b56\",\"dweb:/ipfs/QmTJWQF8j586oaYNpdZv55xnzyHVQc68XN4eBNeiLbKX8d\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0x9944d1038f27dcebff810d7ba16b3b8058b967173d76874fb72dd7cd84129656\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7c455cda07c5f8978c57e545ddde382552d3a55b6e3682e0f809ed07ec7defbe\",\"dweb:/ipfs/QmXkoKbxyMcMzjYdkXi5t4t3ZjBQ81pj7AaanS9jhePxyt\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x7736c187e6f1358c1ea9350a2a21aa8528dec1c2f43b374a9067465a3a51f5d3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4fd625dca17657403af518cc6c8ab5c54c58898cf6e912ca2e1b0f3194ad0405\",\"dweb:/ipfs/QmQVv7YeeKmaS11bg7YDTeeGDk6i7sV8LMMfohaLM4SiRu\"]},\"@openzeppelin/contracts/utils/Counters.sol\":{\"keccak256\":\"0x74f630d2664c1581a1cbd0730d4ba119b3a184ef90c65f3a934be4d16d0e58a1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cadad0b133129f946a53e0f61fa387803ccdc010d9c794da0738bb7fc5001b66\",\"dweb:/ipfs/QmQdTBpUT9WgDuCm7womDFiAnksepw6Fmi5Z5vv1H17Qr1\"]},\"@openzeppelin/contracts/utils/Strings.sol\":{\"keccak256\":\"0x5fa25f305839292fab713256214f2868e0257d29826b14282bbd7f1e34f5af38\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3de4074848249e00e1336db857e3fa8f78b4fe11d4a887f71050c22023b2132\",\"dweb:/ipfs/QmbL6k2zFGndQPNPG7vCDivtjKam3quJSrEbRuVsNo4hBw\"]},\"@openzeppelin/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x905cd0ecd91d1de79a4679d745b79cf852ca8ccda5d25d1c49c6bd17a5edc0cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8dd1601fcd370546d8c06ea1902d7e7364fc490fbf0ebc3004230ef1f5db473c\",\"dweb:/ipfs/Qmb8zbC3TjWFtcuyP3KEEaegMkPcfeKAcPrwzvkAoMR3cZ\"]},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x6aa521718bf139b44ce56f194f6aea1d590cacef995b5a84703fb1579fa49be9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://100f8d367b5e94eb9cb991914f1de133cf272654c0708faa893bbc17a5b35b93\",\"dweb:/ipfs/QmZeBojmgXq821dL1TJKFb58B1FogM9jL3u7hXQ8hTEBKT\"]},\"contracts/token/ERC721/extensions/ERC721WithERC721Children.sol\":{\"keccak256\":\"0x0230ab426d9e8dd3a67deaab1ccb5ef329f2d38104cb0d92cbe9803df2820f43\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://f1d32f5471c98a87a90fe31e91fd939e084ec703b8e3a0d0b34665834955c3c8\",\"dweb:/ipfs/QmRmJqA8Tu1uYv1FYsL5bFX1x4TJL8yyXjSVYvkmJAJZ6b\"]},\"contracts/token/ERC721/extensions/IERC721WithERC721Children.sol\":{\"keccak256\":\"0x4ed77531d5a648adcb16e679e1e588f40016b58902fbb6ae64579f5e747af4ad\",\"license\":\"Unlicensed\",\"urls\":[\"bzz-raw://e2cd0691039336ddfaa86c548310d1759ba89409ea0d85f5334cc77adc348d37\",\"dweb:/ipfs/QmRZyoQgemxjboKPtB3RWY6HjLD4RqpZsfJgLxv71yd5yB\"]}},\"version\":1}"
         }
       },
       "contracts/token/ERC721/extensions/IERC721WithERC1155Children.sol": {
@@ -42717,7 +42717,7 @@
                   "body": {
                     "id": 2059,
                     "nodeType": "Block",
-                    "src": "2535:57:12",
+                    "src": "2542:57:12",
                     "statements": [
                       {
                         "expression": {
@@ -42728,7 +42728,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": -28,
-                              "src": "2553:4:12",
+                              "src": "2560:4:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_ERC721WithERC1155Children_$2092",
                                 "typeString": "contract ERC721WithERC1155Children"
@@ -42742,7 +42742,7 @@
                             "memberName": "onERC1155Received",
                             "nodeType": "MemberAccess",
                             "referencedDeclaration": 2060,
-                            "src": "2553:22:12",
+                            "src": "2560:22:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_bytes4_$",
                               "typeString": "function (address,address,uint256,uint256,bytes memory) external returns (bytes4)"
@@ -42755,7 +42755,7 @@
                           "lValueRequested": false,
                           "memberName": "selector",
                           "nodeType": "MemberAccess",
-                          "src": "2553:31:12",
+                          "src": "2560:31:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes4",
                             "typeString": "bytes4"
@@ -42764,7 +42764,7 @@
                         "functionReturnParameters": 2054,
                         "id": 2058,
                         "nodeType": "Return",
-                        "src": "2546:38:12"
+                        "src": "2553:38:12"
                       }
                     ]
                   },
@@ -42777,13 +42777,13 @@
                       "id": 2051,
                       "modifierName": {
                         "id": 2050,
-                        "name": "onlyWhenDepositing",
+                        "name": "onlyWhenDepositingERC1155",
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 2091,
-                        "src": "2499:18:12"
+                        "src": "2499:25:12"
                       },
                       "nodeType": "ModifierInvocation",
-                      "src": "2499:18:12"
+                      "src": "2499:25:12"
                     }
                   ],
                   "name": "onERC1155Received",
@@ -42944,7 +42944,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2060,
-                        "src": "2527:6:12",
+                        "src": "2534:6:12",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -42955,7 +42955,7 @@
                           "id": 2052,
                           "name": "bytes4",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2527:6:12",
+                          "src": "2534:6:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes4",
                             "typeString": "bytes4"
@@ -42964,10 +42964,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2526:8:12"
+                    "src": "2533:8:12"
                   },
                   "scope": 2092,
-                  "src": "2346:246:12",
+                  "src": "2346:253:12",
                   "stateMutability": "nonpayable",
                   "virtual": true,
                   "visibility": "public"
@@ -42979,7 +42979,7 @@
                   "body": {
                     "id": 2082,
                     "nodeType": "Block",
-                    "src": "2793:49:12",
+                    "src": "2800:49:12",
                     "statements": [
                       {
                         "expression": {
@@ -42993,7 +42993,7 @@
                               "kind": "string",
                               "lValueRequested": false,
                               "nodeType": "Literal",
-                              "src": "2811:22:12",
+                              "src": "2818:22:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_stringliteral_e4815c474206dc60f874240db77b8dac70135689526cb3808f27d91f9b63881b",
                                 "typeString": "literal_string \"Cannot deposit here.\""
@@ -43016,7 +43016,7 @@
                               -19
                             ],
                             "referencedDeclaration": -19,
-                            "src": "2804:6:12",
+                            "src": "2811:6:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
                               "typeString": "function (string memory) pure"
@@ -43030,7 +43030,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2804:30:12",
+                          "src": "2811:30:12",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -43039,7 +43039,7 @@
                         },
                         "id": 2081,
                         "nodeType": "ExpressionStatement",
-                        "src": "2804:30:12"
+                        "src": "2811:30:12"
                       }
                     ]
                   },
@@ -43054,7 +43054,7 @@
                     "id": 2074,
                     "nodeType": "OverrideSpecifier",
                     "overrides": [],
-                    "src": "2759:8:12"
+                    "src": "2766:8:12"
                   },
                   "parameters": {
                     "id": 2073,
@@ -43067,7 +43067,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2642:7:12",
+                        "src": "2649:7:12",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -43078,7 +43078,7 @@
                           "id": 2061,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2642:7:12",
+                          "src": "2649:7:12",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -43094,7 +43094,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2660:7:12",
+                        "src": "2667:7:12",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -43105,7 +43105,7 @@
                           "id": 2063,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2660:7:12",
+                          "src": "2667:7:12",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -43121,7 +43121,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2678:16:12",
+                        "src": "2685:16:12",
                         "stateVariable": false,
                         "storageLocation": "memory",
                         "typeDescriptions": {
@@ -43133,7 +43133,7 @@
                             "id": 2065,
                             "name": "uint256",
                             "nodeType": "ElementaryTypeName",
-                            "src": "2678:7:12",
+                            "src": "2685:7:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -43141,7 +43141,7 @@
                           },
                           "id": 2066,
                           "nodeType": "ArrayTypeName",
-                          "src": "2678:9:12",
+                          "src": "2685:9:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                             "typeString": "uint256[]"
@@ -43156,7 +43156,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2705:16:12",
+                        "src": "2712:16:12",
                         "stateVariable": false,
                         "storageLocation": "memory",
                         "typeDescriptions": {
@@ -43168,7 +43168,7 @@
                             "id": 2068,
                             "name": "uint256",
                             "nodeType": "ElementaryTypeName",
-                            "src": "2705:7:12",
+                            "src": "2712:7:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -43176,7 +43176,7 @@
                           },
                           "id": 2069,
                           "nodeType": "ArrayTypeName",
-                          "src": "2705:9:12",
+                          "src": "2712:9:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                             "typeString": "uint256[]"
@@ -43191,7 +43191,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2732:12:12",
+                        "src": "2739:12:12",
                         "stateVariable": false,
                         "storageLocation": "memory",
                         "typeDescriptions": {
@@ -43202,7 +43202,7 @@
                           "id": 2071,
                           "name": "bytes",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2732:5:12",
+                          "src": "2739:5:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes_storage_ptr",
                             "typeString": "bytes"
@@ -43211,7 +43211,7 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2631:120:12"
+                    "src": "2638:120:12"
                   },
                   "returnParameters": {
                     "id": 2077,
@@ -43224,7 +43224,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2083,
-                        "src": "2785:6:12",
+                        "src": "2792:6:12",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -43235,7 +43235,7 @@
                           "id": 2075,
                           "name": "bytes4",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2785:6:12",
+                          "src": "2792:6:12",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes4",
                             "typeString": "bytes4"
@@ -43244,10 +43244,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2784:8:12"
+                    "src": "2791:8:12"
                   },
                   "scope": 2092,
-                  "src": "2600:242:12",
+                  "src": "2607:242:12",
                   "stateMutability": "nonpayable",
                   "virtual": true,
                   "visibility": "public"
@@ -43256,7 +43256,7 @@
                   "body": {
                     "id": 2090,
                     "nodeType": "Block",
-                    "src": "2878:58:12",
+                    "src": "2892:58:12",
                     "statements": [
                       {
                         "expression": {
@@ -43267,7 +43267,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 1801,
-                              "src": "2897:18:12",
+                              "src": "2911:18:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_bool",
                                 "typeString": "bool"
@@ -43289,7 +43289,7 @@
                               -18
                             ],
                             "referencedDeclaration": -18,
-                            "src": "2889:7:12",
+                            "src": "2903:7:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                               "typeString": "function (bool) pure"
@@ -43303,7 +43303,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2889:27:12",
+                          "src": "2903:27:12",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -43312,34 +43312,34 @@
                         },
                         "id": 2088,
                         "nodeType": "ExpressionStatement",
-                        "src": "2889:27:12"
+                        "src": "2903:27:12"
                       },
                       {
                         "id": 2089,
                         "nodeType": "PlaceholderStatement",
-                        "src": "2927:1:12"
+                        "src": "2941:1:12"
                       }
                     ]
                   },
                   "id": 2091,
-                  "name": "onlyWhenDepositing",
+                  "name": "onlyWhenDepositingERC1155",
                   "nodeType": "ModifierDefinition",
                   "parameters": {
                     "id": 2084,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "2878:0:12"
+                    "src": "2892:0:12"
                   },
-                  "src": "2850:86:12",
+                  "src": "2857:93:12",
                   "virtual": false,
                   "visibility": "internal"
                 }
               ],
               "scope": 2093,
-              "src": "225:2722:12"
+              "src": "225:2736:12"
             }
           ],
-          "src": "41:2906:12"
+          "src": "41:2920:12"
         },
         "id": 12
       },
@@ -46351,7 +46351,7 @@
                   "body": {
                     "id": 2351,
                     "nodeType": "Block",
-                    "src": "2449:56:13",
+                    "src": "2455:56:13",
                     "statements": [
                       {
                         "expression": {
@@ -46362,7 +46362,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": -28,
-                              "src": "2467:4:13",
+                              "src": "2473:4:13",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_ERC721WithERC721Children_$2361",
                                 "typeString": "contract ERC721WithERC721Children"
@@ -46376,7 +46376,7 @@
                             "memberName": "onERC721Received",
                             "nodeType": "MemberAccess",
                             "referencedDeclaration": 2352,
-                            "src": "2467:21:13",
+                            "src": "2473:21:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_bytes4_$",
                               "typeString": "function (address,address,uint256,bytes memory) external returns (bytes4)"
@@ -46389,7 +46389,7 @@
                           "lValueRequested": false,
                           "memberName": "selector",
                           "nodeType": "MemberAccess",
-                          "src": "2467:30:13",
+                          "src": "2473:30:13",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes4",
                             "typeString": "bytes4"
@@ -46398,7 +46398,7 @@
                         "functionReturnParameters": 2346,
                         "id": 2350,
                         "nodeType": "Return",
-                        "src": "2460:37:13"
+                        "src": "2466:37:13"
                       }
                     ]
                   },
@@ -46411,13 +46411,13 @@
                       "id": 2343,
                       "modifierName": {
                         "id": 2342,
-                        "name": "onlyWhenDepositing",
+                        "name": "onlyWhenDepositingERC721",
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 2360,
-                        "src": "2413:18:13"
+                        "src": "2413:24:13"
                       },
                       "nodeType": "ModifierInvocation",
-                      "src": "2413:18:13"
+                      "src": "2413:24:13"
                     }
                   ],
                   "name": "onERC721Received",
@@ -46552,7 +46552,7 @@
                         "name": "",
                         "nodeType": "VariableDeclaration",
                         "scope": 2352,
-                        "src": "2441:6:13",
+                        "src": "2447:6:13",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -46563,7 +46563,7 @@
                           "id": 2344,
                           "name": "bytes4",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2441:6:13",
+                          "src": "2447:6:13",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes4",
                             "typeString": "bytes4"
@@ -46572,10 +46572,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2440:8:13"
+                    "src": "2446:8:13"
                   },
                   "scope": 2361,
-                  "src": "2279:226:13",
+                  "src": "2279:232:13",
                   "stateMutability": "nonpayable",
                   "virtual": true,
                   "visibility": "public"
@@ -46584,7 +46584,7 @@
                   "body": {
                     "id": 2359,
                     "nodeType": "Block",
-                    "src": "2541:57:13",
+                    "src": "2553:57:13",
                     "statements": [
                       {
                         "expression": {
@@ -46595,7 +46595,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 2108,
-                              "src": "2560:17:13",
+                              "src": "2572:17:13",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_bool",
                                 "typeString": "bool"
@@ -46617,7 +46617,7 @@
                               -18
                             ],
                             "referencedDeclaration": -18,
-                            "src": "2552:7:13",
+                            "src": "2564:7:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                               "typeString": "function (bool) pure"
@@ -46631,7 +46631,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2552:26:13",
+                          "src": "2564:26:13",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -46640,34 +46640,34 @@
                         },
                         "id": 2357,
                         "nodeType": "ExpressionStatement",
-                        "src": "2552:26:13"
+                        "src": "2564:26:13"
                       },
                       {
                         "id": 2358,
                         "nodeType": "PlaceholderStatement",
-                        "src": "2589:1:13"
+                        "src": "2601:1:13"
                       }
                     ]
                   },
                   "id": 2360,
-                  "name": "onlyWhenDepositing",
+                  "name": "onlyWhenDepositingERC721",
                   "nodeType": "ModifierDefinition",
                   "parameters": {
                     "id": 2353,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "2541:0:13"
+                    "src": "2553:0:13"
                   },
-                  "src": "2513:85:13",
+                  "src": "2519:91:13",
                   "virtual": false,
                   "visibility": "internal"
                 }
               ],
               "scope": 2362,
-              "src": "292:2317:13"
+              "src": "292:2329:13"
             }
           ],
-          "src": "41:2568:13"
+          "src": "41:2580:13"
         },
         "id": 13
       },
