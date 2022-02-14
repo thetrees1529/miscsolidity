@@ -29,6 +29,9 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     function _depositFrom(address from, uint to, IERC1155 token, uint childTokenId, uint amount) private {
         require(_exists(to), "Token does not exist.");
+
+        _beforeERC1155Deposit(to, token, childTokenId, amount);
+
         _depositingERC1155 = true;
         token.safeTransferFrom(from, address(this), childTokenId, amount, "");
         _depositingERC1155 = false;
@@ -37,6 +40,8 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     function _withdrawTo(uint from, address to, IERC1155 token, uint childTokenId, uint amount) private {
 
+        _beforeERC1155Withdrawal(from, to, token, childTokenId, amount);
+
         _balances[from][token][childTokenId] -= amount;
         token.safeTransferFrom(address(this), to, childTokenId, amount, "");
 
@@ -44,6 +49,14 @@ abstract contract ERC721WithERC1155Children is IERC721WithERC1155Children, ERC72
 
     function balanceOfERC1155Child(uint tokenId, IERC1155 token, uint childTokenId) public override view returns(uint) {
         return _balances[tokenId][token][childTokenId];
+    }
+
+    function _beforeERC1155Deposit(uint tokenId, IERC1155 token, uint childTokenId, uint amount) internal virtual {
+
+    }
+
+    function _beforeERC1155Withdrawal(uint tokenId, address to, IERC1155 token, uint childTokenId, uint amount) internal virtual {
+        
     }
 
     function onERC1155Received(
