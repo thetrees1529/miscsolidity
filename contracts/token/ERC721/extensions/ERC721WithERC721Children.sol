@@ -16,6 +16,7 @@ abstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 
 
     function depositERC721(uint to, IERC721 token, uint childTokenId) public override {
         
+        _beforeERC721Deposit(to, token, childTokenId);
         _depositFrom(msg.sender, to, token, childTokenId);
 
     }
@@ -24,6 +25,7 @@ abstract contract ERC721WithERC721Children is IERC721WithERC721Children, ERC721 
 
         require(_isApprovedOrOwner(msg.sender, from), "Not approved to withdraw from this token.");
 
+        _beforeERC721Withdrawal(from, to, token, childTokenId);
         _withdrawTo(from, to, token, childTokenId);
 
     }
