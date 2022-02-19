@@ -257,8 +257,8 @@
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\access\\OwnableAccessControl.sol": {
-      "lastModificationDate": 1644606518058,
-      "contentHash": "554a07ab79b1e63842118c29021263df",
+      "lastModificationDate": 1645297472897,
+      "contentHash": "74698f1ea64115eaa5b520f485b2ab31",
       "sourceName": "contracts/access/OwnableAccessControl.sol",
       "solcConfig": {
         "version": "0.8.0",
