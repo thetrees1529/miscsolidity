@@ -30,15 +30,17 @@ abstract contract FeeTakersERC20 is Ownable{
         delete _feeTakersERC20;
     }
 
-    function _distributeFeeERC20(IERC20 token, uint fee) internal {
+    function _distributeFeeERC20(IERC20 token, uint fee) internal returns(bool success) {
+        if(_feeTakersERC20.length == 0) {
+            return true;
+        }
         uint feePoints;
-        uint feePerPoint;
         for(uint i; i < _feeTakersERC20.length; i ++) {
             feePoints += _feeTakersERC20[i].points;
         }
-        if(feePoints > 0) {
-            feePerPoint = fee / feePoints;
-        }
+
+        uint feePerPoint = fee / feePoints;
+        
         for(uint i; i < _feeTakersERC20.length; i ++) {
             FeeTakerERC20 storage feeTaker = _feeTakersERC20[i];
             address feeTakerAddr = feeTaker.addr;
@@ -46,5 +48,6 @@ abstract contract FeeTakersERC20 is Ownable{
             token.transfer(feeTakerAddr, toSend);
             emit FeeSentERC20(token, feeTakerAddr, toSend);
         }
+        return true;
     }
 }

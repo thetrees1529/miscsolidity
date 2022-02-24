@@ -32,20 +32,21 @@ contract FeeTakers is Ownable, ReentrancyGuard {
 
     function _distributeFee(uint fee) internal nonReentrant returns(bool success) {
         if(_feeTakers.length == 0) {
-            return false;
+            return true;
         }
         uint feePoints;
-        uint feePerPoint;
         for(uint i; i < _feeTakers.length; i ++) {
             feePoints += _feeTakers[i].points;
         }
-        feePerPoint = fee / feePoints;
+        uint feePerPoint = fee / feePoints;
         for(uint i; i < _feeTakers.length; i ++) {
             FeeTaker storage feeTaker = _feeTakers[i];
             address feeTakerAddr = feeTaker.addr;
             uint toSend = feeTaker.points * feePerPoint;
             (bool succ,) = feeTakerAddr.call{value: toSend}("");
-            require(succ);
+            if(!succ) {
+                return false;
+            }
             emit FeeSent(feeTakerAddr, toSend);
         }
         return true;
