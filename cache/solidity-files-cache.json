@@ -1067,10 +1067,47 @@
         "IERC721WithERC721Children"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\ReceiveWithdraw.sol": {
-      "lastModificationDate": 1645284863712,
-      "contentHash": "94c55402306c3859625e56b790886e8e",
-      "sourceName": "contracts/utils/ReceiveWithdraw.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\IWithdrawERC20.sol": {
+      "lastModificationDate": 1645884896558,
+      "contentHash": "d7fa93c72d655fd0a535efcb2718202e",
+      "sourceName": "contracts/utils/IWithdrawERC20.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IWithdraw"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\WithdrawERC20.sol": {
+      "lastModificationDate": 1645884911772,
+      "contentHash": "2177cac17212df1cda9ec6a84109c703",
+      "sourceName": "contracts/utils/WithdrawERC20.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -1096,19 +1133,57 @@
       },
       "imports": [
         "@openzeppelin/contracts/access/AccessControl.sol",
-        "./IReceiveWithdraw.sol"
+        "./IWithdrawERC20.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ReceiveWithdraw"
+        "Withdraw"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\IReceiveWithdraw.sol": {
-      "lastModificationDate": 1645284796018,
-      "contentHash": "dd58b0d70eee7e7b5db12dcb226d1ad5",
-      "sourceName": "contracts/utils/IReceiveWithdraw.sol",
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\Withdraw.sol": {
+      "lastModificationDate": 1645884798559,
+      "contentHash": "ca9415bd5cda0f9ec19c62b32dca2117",
+      "sourceName": "contracts/utils/Withdraw.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/AccessControl.sol",
+        "./IWithdraw.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Withdraw"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\IWithdraw.sol": {
+      "lastModificationDate": 1645884943621,
+      "contentHash": "ca3b59375a8aa168287dae5fda9fb49e",
+      "sourceName": "contracts/utils/IWithdraw.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -1137,7 +1212,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IReceiveWithdraw"
+        "IWithdraw"
       ]
     }
   }
