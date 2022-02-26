@@ -1,8 +1,9 @@
 //SPDX-License-Identifier: MIT
+import "./CONSTANTS.sol";
 pragma solidity ^0.8.0;
 
 contract VRF {
-    function _vrf(uint blockNumber) internal view returns (bytes32 result) {
+    function _vrf(uint blockNumber) internal view returns (bool valid, bytes32 result) {
         uint[1] memory bn;
         bn[0] = blockNumber;
         assembly {
@@ -11,6 +12,9 @@ contract VRF {
                 invalid()
             }
             result := mload(memPtr)
+        }
+        if(block.timestamp <= blockNumber + VRF_INVALID_AFTER && block.timestamp >= blockNumber) {
+            valid = true;
         }
     } 
 }
