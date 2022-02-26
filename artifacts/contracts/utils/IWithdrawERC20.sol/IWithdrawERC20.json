@@ -1,6 +1,6 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "IWithdraw",
+  "contractName": "IWithdrawERC20",
   "sourceName": "contracts/utils/IWithdrawERC20.sol",
   "abi": [
     {

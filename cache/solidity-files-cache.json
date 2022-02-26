@@ -1068,8 +1068,8 @@
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\IWithdrawERC20.sol": {
-      "lastModificationDate": 1645884896558,
-      "contentHash": "d7fa93c72d655fd0a535efcb2718202e",
+      "lastModificationDate": 1645885364263,
+      "contentHash": "fa4be6a71312f3dfef75d07515810524",
       "sourceName": "contracts/utils/IWithdrawERC20.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -1101,12 +1101,12 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IWithdraw"
+        "IWithdrawERC20"
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\WithdrawERC20.sol": {
-      "lastModificationDate": 1645884911772,
-      "contentHash": "2177cac17212df1cda9ec6a84109c703",
+      "lastModificationDate": 1645885360797,
+      "contentHash": "64763bae4ea574ec601c73ee467c212c",
       "sourceName": "contracts/utils/WithdrawERC20.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -1139,7 +1139,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "Withdraw"
+        "WithdrawERC20"
       ]
     },
     "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\Withdraw.sol": {
