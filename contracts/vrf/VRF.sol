@@ -13,9 +13,9 @@ contract VRF {
             }
             result := mload(memPtr)
         }
-        valid = _isValid(blockNumber);
+        valid = _isValidVrf(blockNumber);
     } 
-    function _isValid(uint blockNumber) internal view returns(bool) {
+    function _isValidVrf(uint blockNumber) internal view returns(bool) {
         return block.timestamp <= blockNumber + VRF_INVALID_AFTER && block.timestamp >= blockNumber;
     }
 }
