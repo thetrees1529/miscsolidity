@@ -1325,10 +1325,10 @@
         "ERC1155Holder"
       ]
     },
-    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC1155\\extensions\\ERC1155PausableHolder.sol": {
-      "lastModificationDate": 1646052030468,
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\token\\ERC1155\\extensions\\ERC1155HolderPausable.sol": {
+      "lastModificationDate": 1646078599752,
       "contentHash": "0c4e5a645ff3553144291753b64d342f",
-      "sourceName": "contracts/token/ERC1155/extensions/ERC1155PausableHolder.sol",
+      "sourceName": "contracts/token/ERC1155/extensions/ERC1155HolderPausable.sol",
       "solcConfig": {
         "version": "0.8.0",
         "settings": {
@@ -1360,6 +1360,78 @@
       ],
       "artifacts": [
         "ERC1155PausableHolder"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\Pausable\\IPausable.sol": {
+      "lastModificationDate": 1646079017567,
+      "contentHash": "52d55f13f94fdcc75ac3213b8eaa089d",
+      "sourceName": "contracts/utils/Pausable/IPausable.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IPausable"
+      ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\Pausable\\Pausable.sol": {
+      "lastModificationDate": 1646079046347,
+      "contentHash": "336399ac06a54f5e9defe4a44931a70b",
+      "sourceName": "contracts/utils/Pausable/Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pausable"
       ]
     }
   }
