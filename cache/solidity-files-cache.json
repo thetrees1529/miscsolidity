@@ -1468,6 +1468,41 @@
       "artifacts": [
         "Transfer"
       ]
+    },
+    "C:\\Users\\lukey\\Documents\\Blockchain\\Libraries\\miscsolidity\\contracts\\utils\\maths\\Fractions.sol": {
+      "lastModificationDate": 1646520210600,
+      "contentHash": "dddcc2e0a32a954f2f0deb5e5b8cf6d3",
+      "sourceName": "contracts/utils/maths/Fractions.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Fractions"
+      ]
     }
   }
 }
