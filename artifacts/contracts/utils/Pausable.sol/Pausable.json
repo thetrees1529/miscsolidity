@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "IPausable",
-  "sourceName": "contracts/utils/Pausable/IPausable.sol",
+  "contractName": "Pausable",
+  "sourceName": "contracts/utils/Pausable.sol",
   "abi": [
     {
       "anonymous": false,
@@ -30,8 +30,8 @@
       "type": "event"
     }
   ],
-  "bytecode": "0x",
-  "deployedBytecode": "0x",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212203ad8925564bf13b1145520131ebba10eff8ef5293587ee860a5b23c506a8e2fd64736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212203ad8925564bf13b1145520131ebba10eff8ef5293587ee860a5b23c506a8e2fd64736f6c63430008000033",
   "linkReferences": {},
   "deployedLinkReferences": {}
 }

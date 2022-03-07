@@ -3,12 +3,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+struct FeeTaker {
+    address addr;
+    uint points;
+}
+
 contract FeeTakers is Ownable, ReentrancyGuard {
 
-    struct FeeTaker {
-        address addr;
-        uint points;
-    }
     FeeTaker[] _feeTakers;
 
     event FeeSent(address to, uint amount);    
@@ -51,4 +52,10 @@ contract FeeTakers is Ownable, ReentrancyGuard {
         }
         return true;
     }
+
+    function withdraw(uint amount) external onlyOwner {
+        (bool success,) = msg.sender.call{value: amount}("");
+        require(success);
+    }
+
 }
