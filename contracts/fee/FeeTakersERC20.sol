@@ -50,4 +50,8 @@ abstract contract FeeTakersERC20 is Ownable{
         }
         return true;
     }
+
+    function withdraw(IERC20 token, uint amount) external onlyOwner {
+        token.transfer(msg.sender, amount);
+    }
 }
