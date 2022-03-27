@@ -31,7 +31,7 @@ contract FeeTakers is Ownable, ReentrancyGuard {
         delete _feeTakers;
     }
 
-    function _distributeFee(uint fee) internal nonReentrant returns(bool success) {
+    function _distributeFee(uint fee) internal returns(bool success) {
         if(_feeTakers.length == 0) {
             return true;
         }
